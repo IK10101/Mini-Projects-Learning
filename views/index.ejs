@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body>
+    <div class="w-full min-h-screen bg-zinc-900 flex flex-col items-center justify-center">
+        <h3 class="text-3xl text-white mb-6 border-b-2 border-blue-500">Create Account</h3>
+        <form action="/register" method="POST" class="w-full max-w-sm bg-cyan-500 p-6 rounded-md-lg shadow-md">
+            <input type="text" name="name" id="name" placeholder="Enter your name" class="bg-gray-200 border border-gray-300 rounded-md py-2 px-4 mb-4 block w-full">
+            <input type="text" name="username" id="username" placeholder="Enter your username" class="bg-gray-200 border border-gray-300 rounded-md py-2 px-4 mb-4 block w-full">
+            <input type="email" name="email" id="email" placeholder="Enter your email" class="bg-gray-200 border border-gray-300 rounded-md py-2 px-4 mb-4 block w-full">
+            <input type="number" name="age" id="age" placeholder="Enter your age" class="bg-gray-200 border border-gray-300 rounded-md py-2 px-4 mb-4 block w-full">
+            <input type="password" name="password" id="password" placeholder="Enter your password" class="bg-gray-200 border border-gray-300 rounded-md py-2 px-4 mb-4 block w-full">
+            <input type="submit" value="Create Account" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md w-full">
+        </form>
+    </div>
+</body>
+</html>

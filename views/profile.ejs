@@ -1,0 +1,182 @@
+```ejs
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-[#0d1117] min-h-screen py-10">
+
+    <div class="max-w-3xl mx-auto px-4">
+
+        <h1 class="text-5xl text-center text-white mb-8 underline decoration-blue-500">
+            My Profile
+        </h1>
+
+        <div class="bg-cyan-500 p-8 rounded-lg shadow-lg">
+
+            <div class="space-y-4">
+
+                <div class="bg-gray-300 p-4 rounded text-xl text-gray-700">
+                    👤 <strong>Name:</strong> <%= user.name %>
+                </div>
+
+                <div class="bg-gray-300 p-4 rounded text-xl text-gray-700">
+                    📧 <strong>Email:</strong> <%= user.email %>
+                </div>
+
+                <div class="bg-gray-300 p-4 rounded text-xl text-gray-700">
+                    🆔 <strong>Username:</strong> <%= user.username %>
+                </div>
+
+                <div class="bg-gray-300 p-4 rounded text-xl text-gray-700">
+                    🎂 <strong>Age:</strong> <%= user.age %>
+                </div>
+
+                <a href="/logout"
+                    class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded transition">
+                    Logout
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="mt-10">
+
+            <h2 class="text-3xl text-white mb-4 underline decoration-blue-500">
+                Create Post
+            </h2>
+
+            <form action="/post" method="POST" class="bg-cyan-500 p-6 rounded-lg">
+
+                <textarea
+                    name="content"
+                    rows="4"
+                    placeholder="What's on your mind?"
+                    class="w-full p-4 rounded text-gray-700 resize-none"
+                    required
+                ></textarea>
+
+                <button
+                    type="submit"
+                    class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded transition">
+                    Create Post
+                </button>
+
+            </form>
+
+        </div>
+
+        <div class="mt-10">
+
+            <h2 class="text-3xl text-white mb-5 underline decoration-blue-500">
+                My Posts
+            </h2>
+
+            <% if(user.posts.length === 0){ %>
+
+                <div class="bg-cyan-500 p-5 rounded-lg">
+                    <p class="text-white text-lg">
+                        No posts yet.
+                    </p>
+                </div>
+
+            <% } %>
+
+            <% [...user.posts].reverse().forEach(post => { %>
+
+                <div class="bg-cyan-500 p-5 rounded-lg mb-4 shadow">
+
+                    <p class="text-white text-lg break-words">
+                        <%= post.content %>
+                    </p>
+
+                    <div class="flex justify-between items-center mt-4">
+
+                        <span class="text-white">
+                            ❤️ <%= post.likes.length %> Likes
+                        </span>
+
+                        <div class="flex gap-2">
+
+                            <a href="/like/<%= post._id %>"
+                                class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
+                                Like
+                            </a>
+
+                            <button
+                                onclick="toggleEdit('<%= post._id %>')"
+                                class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded">
+                                Edit
+                            </button>
+
+                            <form action="/delete/<%= post._id %>" method="POST">
+                                <button
+                                    type="submit"
+                                    class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded"
+                                    onclick="return confirm('Delete this post?')">
+                                    Delete
+                                </button>
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                    <form
+                        id="edit-form-<%= post._id %>"
+                        action="/edit/<%= post._id %>"
+                        method="POST"
+                        class="hidden mt-4"
+                    >
+                        <textarea
+                            name="content"
+                            rows="3"
+                            class="w-full p-3 rounded text-gray-700 resize-none"
+                            required
+                        ><%= post.content %></textarea>
+
+                        <div class="flex gap-2 mt-2">
+
+                            <button
+                                type="submit"
+                                class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">
+                                Save
+                            </button>
+
+                            <button
+                                type="button"
+                                onclick="toggleEdit('<%= post._id %>')"
+                                class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded">
+                                Cancel
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            <% }) %>
+
+        </div>
+
+    </div>
+
+    <script>
+        function toggleEdit(id) {
+            const form = document.getElementById(`edit-form-${id}`);
+            form.classList.toggle('hidden');
+        }
+    </script>
+
+</body>
+</html>
+```
+
+
+
